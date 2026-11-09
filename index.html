@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Glimmerveil Courts | WAX TCG</title>
+    <style>
+        :root {
+            --bg-color: #0b130e;
+            --card-bg: #14241b;
+            --accent-gold: #d4af37;
+            --accent-green: #2e8b57;
+            --text-light: #e0e8e3;
+            --text-muted: #9ab0a3;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(180deg, rgba(5,15,10,0.95) 0%, rgba(11,19,14,0.8) 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background-color: #f1c40f;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-green);
+            color: #fff;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(46, 139, 87, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        .card .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            color: var(--text-light);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Glimmerveil Courts</h1>
+        <p class="subtitle">Step beyond the iron veil. Collect, burn, and ascend through 6 linear tiers of ancient Fae nobility on the WAX blockchain.</p>
+        <div class="cta-buttons">
+            <a href="https://atomichub.io" target="_blank" rel="noopener" class="btn btn-primary">View on AtomicHub</a>
+            <a href="#rarities" class="btn btn-secondary">Explore Rarities</a>
+        </div>
+    </header>
+
+    <div class="main-container" id="rarities">
+        <h2 class="section-title">The 6 Fae Courts</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge">Tier 1 · Common</span>
+                <h3>Changeling</h3>
+                <p>The base creature of the realm. Burn 3 Changelings to blend 1 Pixie.</p>
+            </div>
+            <div class="card">
+                <span class="badge">Tier 2 · Uncommon</span>
+                <h3>Pixie</h3>
+                <p>Swift nature spirits. Burn 3 Pixies to blend 1 Selkie.</p>
+            </div>
+            <div class="card">
+                <span class="badge">Tier 3 · Rare</span>
+                <h3>Selkie</h3>
+                <p>Guardians of the deep waters. Burn 4 Selkies to blend 1 Kelpie.</p>
+            </div>
+            <div class="card">
+                <span class="badge">Tier 4 · Epic</span>
+                <h3>Kelpie</h3>
+                <p>Powerful aquatic shapeshifters. Burn 4 Kelpies to blend 1 Redcap.</p>
+            </div>
+            <div class="card">
+                <span class="badge">Tier 5 · Legendary</span>
+                <h3>Redcap</h3>
+                <p>Fierce court warriors. Burn 5 Redcaps to blend 1 Dryad.</p>
+            </div>
+            <div class="card">
+                <span class="badge">Tier 6 · Mythic</span>
+                <h3>Dryad</h3>
+                <p>Ancient primordial guardians of Glimmerveil. The ultimate grail card.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 The Glimmerveil Courts. Built on WAX Blockchain.</p>
+    </footer>
+
+</body>
+</html>
