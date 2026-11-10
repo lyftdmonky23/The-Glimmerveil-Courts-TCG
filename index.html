@@ -3,194 +3,714 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Glimmerveil Courts | WAX TCG</title>
+    <title>The Glimmerveil Courts TCG - NFT Collection Showcase</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        rarity: {
+                            common: '#9ca3af',
+                            uncommon: '#10b981',
+                            rare: '#3b82f6',
+                            epic: '#a855f7',
+                            legendary: '#f97316',
+                            mythic: '#eab308',
+                            divine: '#e0e7ff'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --bg-color: #0b130e;
-            --card-bg: #14241b;
-            --accent-gold: #d4af37;
-            --accent-green: #2e8b57;
-            --text-light: #e0e8e3;
-            --text-muted: #9ab0a3;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            line-height: 1.6;
+            background-color: #0b0d12;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(88, 28, 135, 0.18) 0%, transparent 75%),
+                radial-gradient(circle at 10% 50%, rgba(30, 58, 138, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(120, 53, 15, 0.12) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
-        header {
-            background: linear-gradient(180deg, rgba(5,15,10,0.95) 0%, rgba(11,19,14,0.8) 100%);
-            padding: 60px 20px;
-            text-align: center;
-            border-bottom: 2px solid var(--accent-gold);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0d12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
         }
 
-        h1 {
-            font-size: 3rem;
-            color: var(--accent-gold);
-            margin: 0 0 10px 0;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        /* Card Container & Perspective */
+        .card-perspective {
+            perspective: 1000px;
         }
 
-        p.subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 30px auto;
+        .card-inner {
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
         }
 
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+        /* Foil Glare Overlay */
+        .glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(125deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+            border-radius: 0.75rem;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            font-weight: bold;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .card-perspective:hover .glare {
+            opacity: 1;
         }
 
-        .btn-primary {
-            background-color: var(--accent-gold);
-            color: #000;
+        /* Specific Rarity Glows */
+        .glow-common {
+            box-shadow: 0 0 15px -3px rgba(156, 163, 175, 0.3);
+            border-color: rgba(156, 163, 175, 0.5);
+        }
+        .glow-common:hover {
+            box-shadow: 0 0 25px 2px rgba(156, 163, 175, 0.6);
+            border-color: rgba(209, 213, 219, 0.9);
         }
 
-        .btn-primary:hover {
-            background-color: #f1c40f;
-            box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+        .glow-uncommon {
+            box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+        .glow-uncommon:hover {
+            box-shadow: 0 0 25px 3px rgba(16, 185, 129, 0.6);
+            border-color: rgba(52, 211, 153, 0.9);
         }
 
-        .btn-secondary {
-            border: 2px solid var(--accent-green);
-            color: var(--accent-green);
+        .glow-rare {
+            box-shadow: 0 0 15px -3px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .glow-rare:hover {
+            box-shadow: 0 0 25px 3px rgba(59, 130, 246, 0.65);
+            border-color: rgba(96, 165, 250, 0.9);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--accent-green);
-            color: #fff;
+        .glow-epic {
+            box-shadow: 0 0 18px -2px rgba(168, 85, 247, 0.35);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+        .glow-epic:hover {
+            box-shadow: 0 0 28px 4px rgba(168, 85, 247, 0.7);
+            border-color: rgba(192, 132, 252, 0.95);
         }
 
-        .main-container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .glow-legendary {
+            box-shadow: 0 0 20px -2px rgba(249, 115, 22, 0.4);
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+        .glow-legendary:hover {
+            box-shadow: 0 0 30px 5px rgba(249, 115, 22, 0.75);
+            border-color: rgba(253, 186, 116, 1);
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            color: var(--accent-gold);
-            margin-bottom: 30px;
+        .glow-mythic {
+            box-shadow: 0 0 22px -1px rgba(234, 179, 8, 0.45);
+            border-color: rgba(234, 179, 8, 0.6);
+        }
+        .glow-mythic:hover {
+            box-shadow: 0 0 35px 6px rgba(234, 179, 8, 0.85);
+            border-color: rgba(254, 240, 138, 1);
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* Divine Cosmic Iridescent Effect */
+        .glow-divine {
+            box-shadow: 0 0 25px 1px rgba(224, 231, 255, 0.5), 0 0 40px 8px rgba(192, 132, 252, 0.3);
+            border-color: rgba(224, 231, 255, 0.8);
+            animation: divinePulse 4s infinite alternate;
+        }
+        .glow-divine:hover {
+            box-shadow: 0 0 40px 5px rgba(255, 255, 255, 0.9), 0 0 60px 15px rgba(168, 85, 247, 0.6);
+            border-color: #ffffff;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(46, 139, 87, 0.3);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.2s ease;
+        @keyframes divinePulse {
+            0% {
+                box-shadow: 0 0 20px 2px rgba(224, 231, 255, 0.4), 0 0 35px 5px rgba(168, 85, 247, 0.25);
+            }
+            50% {
+                box-shadow: 0 0 28px 4px rgba(244, 114, 182, 0.5), 0 0 45px 8px rgba(59, 130, 246, 0.35);
+            }
+            100% {
+                box-shadow: 0 0 25px 3px rgba(250, 204, 21, 0.5), 0 0 40px 6px rgba(192, 132, 252, 0.3);
+            }
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
+        /* Modal Overlay Transition */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
-        .card .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
+        /* Ambient floating particles */
+        .bg-particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatParticle linear infinite;
         }
 
-        .card h3 {
-            margin: 10px 0;
-            color: var(--text-light);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col font-sans relative overflow-x-hidden selection:bg-purple-900 selection:text-purple-100">
 
-    <header>
-        <h1>The Glimmerveil Courts</h1>
-        <p class="subtitle">Step beyond the iron veil. Collect, burn, and ascend through 6 linear tiers of ancient Fae nobility on the WAX blockchain.</p>
-        <div class="cta-buttons">
-            <a href="https://atomichub.io" target="_blank" rel="noopener" class="btn btn-primary">View on AtomicHub</a>
-            <a href="#rarities" class="btn btn-secondary">Explore Rarities</a>
-        </div>
-    </header>
+    <!-- Ambient Particles Container -->
+    <div id="particles-container"></div>
 
-    <div class="main-container" id="rarities">
-        <h2 class="section-title">The 6 Fae Courts</h2>
-        <div class="grid">
-            <div class="card">
-                <span class="badge">Tier 1 · Common</span>
-                <h3>Changeling</h3>
-                <p>The base creature of the realm. Burn 3 Changelings to blend 1 Pixie.</p>
+    <!-- MAIN CONTAINER -->
+    <div class="relative z-10 flex-1 flex flex-col max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- HEADER SECTION -->
+        <header class="text-center mb-10 relative">
+            <div class="inline-block relative">
+                <!-- Soft background ethereal glow -->
+                <div class="absolute -inset-4 bg-gradient-to-r from-purple-600/30 via-indigo-500/30 to-amber-500/30 blur-2xl rounded-full opacity-70"></div>
+                
+                <h1 class="relative font-cinzel text-3xl sm:text-5xl md:text-6xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-slate-100 to-amber-200 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] uppercase">
+                    The Glimmerveil Courts
+                </h1>
             </div>
-            <div class="card">
-                <span class="badge">Tier 2 · Uncommon</span>
-                <h3>Pixie</h3>
-                <p>Swift nature spirits. Burn 3 Pixies to blend 1 Selkie.</p>
+
+            <p class="font-cinzel text-lg sm:text-xl text-purple-300 font-semibold tracking-widest mt-2 uppercase">
+                Trading Card Game • Official Collection Showcase
+            </p>
+
+            <div class="w-32 h-0.5 mx-auto bg-gradient-to-r from-transparent via-purple-500 to-transparent my-4"></div>
+
+            <p class="max-w-3xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed font-light px-2">
+                Step into the ancient realm where the seven fae courts wage an eternal struggle for dominance. 
+                Explore the complete rarity ladder from the shadow-shifting Changeling to the divine Majesty of Queen Titania.
+            </p>
+
+            <!-- STATS & BLENDING HIGHLIGHT BAR -->
+            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto text-left">
+                <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 backdrop-blur-md flex items-center space-x-3">
+                    <div class="p-2.5 bg-purple-950/80 border border-purple-500/30 rounded-lg text-purple-400">
+                        <i class="fa-solid fa-layer-group text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Tiers</div>
+                        <div class="font-cinzel font-bold text-slate-100 text-lg">7 Rarities</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 backdrop-blur-md flex items-center space-x-3">
+                    <div class="p-2.5 bg-amber-950/80 border border-amber-500/30 rounded-lg text-amber-400">
+                        <i class="fa-solid fa-fire text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Blending</div>
+                        <div class="font-cinzel font-bold text-slate-100 text-lg">5 Mythic = 1 Divine</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 backdrop-blur-md flex items-center space-x-3">
+                    <div class="p-2.5 bg-indigo-950/80 border border-indigo-500/30 rounded-lg text-indigo-400">
+                        <i class="fa-solid fa-crown text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Divine Cap</div>
+                        <div class="font-cinzel font-bold text-indigo-200 text-lg">100 Minted</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 backdrop-blur-md flex items-center space-x-3">
+                    <div class="p-2.5 bg-teal-950/80 border border-teal-500/30 rounded-lg text-teal-400">
+                        <i class="fa-solid fa-cubes text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Blockchain</div>
+                        <div class="font-cinzel font-bold text-slate-100 text-lg">WAX / AtomicHub</div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <span class="badge">Tier 3 · Rare</span>
-                <h3>Selkie</h3>
-                <p>Guardians of the deep waters. Burn 4 Selkies to blend 1 Kelpie.</p>
+
+            <!-- FILTER BUTTONS -->
+            <div class="mt-8 flex flex-wrap justify-center gap-2" id="filter-buttons">
+                <button onclick="filterCards('all')" class="filter-btn active px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-purple-900/60 border border-purple-500 text-purple-200 hover:bg-purple-800">
+                    All Cards (7)
+                </button>
+                <button onclick="filterCards('common')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-slate-300 hover:border-slate-400">
+                    Common
+                </button>
+                <button onclick="filterCards('uncommon')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-emerald-400 hover:border-emerald-500">
+                    Uncommon
+                </button>
+                <button onclick="filterCards('rare')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-blue-400 hover:border-blue-500">
+                    Rare
+                </button>
+                <button onclick="filterCards('epic')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-purple-400 hover:border-purple-500">
+                    Epic
+                </button>
+                <button onclick="filterCards('legendary')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-orange-400 hover:border-orange-500">
+                    Legendary
+                </button>
+                <button onclick="filterCards('mythic')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-slate-700 text-yellow-400 hover:border-yellow-500">
+                    Mythic
+                </button>
+                <button onclick="filterCards('divine')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-slate-800/80 border border-indigo-400 text-indigo-200 hover:border-white">
+                    Divine
+                </button>
             </div>
-            <div class="card">
-                <span class="badge">Tier 4 · Epic</span>
-                <h3>Kelpie</h3>
-                <p>Powerful aquatic shapeshifters. Burn 4 Kelpies to blend 1 Redcap.</p>
+        </header>
+
+        <!-- CARD GRID SECTION -->
+        <main class="flex-1 my-4">
+            <div id="card-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-stretch justify-center">
+                <!-- Dynamic cards populated via JavaScript -->
             </div>
-            <div class="card">
-                <span class="badge">Tier 5 · Legendary</span>
-                <h3>Redcap</h3>
-                <p>Fierce court warriors. Burn 5 Redcaps to blend 1 Dryad.</p>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="mt-16 pt-8 border-t border-slate-800/80 text-center text-xs text-slate-500 font-light flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-gem text-purple-500"></i>
+                <span class="font-cinzel font-semibold text-slate-400">The Glimmerveil Courts TCG</span>
             </div>
-            <div class="card">
-                <span class="badge">Tier 6 · Mythic</span>
-                <h3>Dryad</h3>
-                <p>Ancient primordial guardians of Glimmerveil. The ultimate grail card.</p>
+            <div>
+                Built on WAX Blockchain • Compatible with AtomicHub & NeftyBlocks
+            </div>
+            <div>
+                © 2026 The Glimmerveil Courts. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <!-- INTERACTIVE CARD DETAIL MODAL -->
+    <div id="card-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center border border-slate-600 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Card Image Preview Side -->
+            <div class="w-full md:w-1/2 p-6 bg-slate-950/60 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800">
+                <div class="relative max-w-[320px] w-full rounded-xl overflow-hidden shadow-2xl" id="modal-card-wrapper">
+                    <img id="modal-img" src="" alt="Card Artwork" class="w-full h-auto object-contain rounded-xl">
+                </div>
+            </div>
+
+            <!-- Card Metadata Side -->
+            <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+                <div>
+                    <!-- Rarity Badge -->
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span id="modal-rarity-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Rarity
+                        </span>
+                        <span id="modal-cap-badge" class="hidden px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-950 border border-indigo-500 text-indigo-200">
+                            Hard Cap: 100
+                        </span>
+                    </div>
+
+                    <!-- Card Title -->
+                    <h2 id="modal-title" class="font-cinzel text-2xl sm:text-3xl font-bold text-slate-100 mb-1">
+                        Card Name
+                    </h2>
+
+                    <div id="modal-subtitle" class="text-xs uppercase tracking-widest font-semibold mb-6">
+                        Category / Role
+                    </div>
+
+                    <!-- Lore / Description -->
+                    <div class="mb-6">
+                        <h4 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Lore & Description</h4>
+                        <p id="modal-description" class="text-sm text-slate-300 leading-relaxed font-light">
+                            Card lore text...
+                        </p>
+                    </div>
+
+                    <!-- Visual Specs -->
+                    <div class="bg-slate-950/50 rounded-xl p-4 border border-slate-800/80 space-y-2 mb-6 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Color Palette:</span>
+                            <span id="modal-palette" class="font-medium text-slate-200">Palette Details</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Schema Strategy:</span>
+                            <span class="font-medium text-slate-200">Unified `cards` Schema</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Burn Recipe:</span>
+                            <span id="modal-recipe" class="font-medium text-slate-200">Standard Drop</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-3 pt-4 border-t border-slate-800">
+                    <button id="modal-copy-btn" onclick="copyIpfsLink()" class="flex-1 py-2.5 px-4 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/50 text-purple-100 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-center space-x-2 transition-colors">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Copy IPFS Link</span>
+                    </button>
+                    <button onclick="closeModal()" class="py-2.5 px-5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium text-xs sm:text-sm transition-colors">
+                        Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 The Glimmerveil Courts. Built on WAX Blockchain.</p>
-    </footer>
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // CARDS DATA COLLECTION
+        const cardsData = [
+            {
+                id: 'changeling',
+                name: 'Changeling',
+                rarity: 'Common',
+                rarityKey: 'common',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreignxsl47yd3tn25czpydzjvtxvjbje5hecanczpljetluad67oirq',
+                glowClass: 'glow-common',
+                badgeBg: 'bg-slate-800 text-slate-300 border border-slate-600',
+                subtitle: 'Shadow-Shifter of the Grey Court',
+                description: 'Changelings form the elusive backbone of the Court. Able to mirror human and fae form alike, they wander the misty borders of the mortal realm wrapped in ethereal grey smoke.',
+                palette: 'Ethereal Smoke Grey & Obsidian',
+                hardCap: null,
+                recipe: 'Base Drop Tier'
+            },
+            {
+                id: 'pixie',
+                name: 'Pixie',
+                rarity: 'Uncommon',
+                rarityKey: 'uncommon',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreifqaaqas62qrclshopenuk4jcznvxnob7hf4q275bwkxfwpt5bytu',
+                glowClass: 'glow-uncommon',
+                badgeBg: 'bg-emerald-950 text-emerald-300 border border-emerald-500/50',
+                subtitle: 'Glimmer-Winged Trickster',
+                description: 'Agile and capricious, Pixies harness the wild magic of the ancient forests. Their bioluminescent dust lights up the shadowy woods, luring foolish mortals off safe pathways.',
+                palette: 'Verdant Forest Green & Emerald Glow',
+                hardCap: null,
+                recipe: 'Blend 5 Commons'
+            },
+            {
+                id: 'selkie',
+                name: 'Selkie',
+                rarity: 'Rare',
+                rarityKey: 'rare',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreibnlbgzacwb3gadinciljfzpnhxzwwiosuo5pjpr75cjr2uipgw4m',
+                glowClass: 'glow-rare',
+                badgeBg: 'bg-blue-950 text-blue-300 border border-blue-500/50',
+                subtitle: 'Guardian of the Deep Waves',
+                description: 'Sovereigns of the misty oceanic shores. Bound to their seal skins, Selkies command tempestuous tides and protect the ancient secrets submerged beneath the abyssal sea.',
+                palette: 'Sapphire Blue & Oceanic Sparkle',
+                hardCap: null,
+                recipe: 'Blend 5 Uncommons'
+            },
+            {
+                id: 'kelpie',
+                name: 'Kelpie',
+                rarity: 'Epic',
+                rarityKey: 'epic',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiah5qtkio2tduyl2jzu3baahfl6j4zdmfrq6ldsvt3faflyw3iyom',
+                glowClass: 'glow-epic',
+                badgeBg: 'bg-purple-950 text-purple-300 border border-purple-500/50',
+                subtitle: 'Nightmare of the Dark Lochs',
+                description: 'A terrifying shape-shifting aquatic spirit. Lurking beneath pitch-black waters, the Kelpie lures unwary travelers to the riverbank before dragging them down into mystical depths.',
+                palette: 'Mystic Purple & Amethyst Energy',
+                hardCap: null,
+                recipe: 'Blend 5 Rares'
+            },
+            {
+                id: 'redcap',
+                name: 'Redcap',
+                rarity: 'Legendary',
+                rarityKey: 'legendary',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreifbppnnlrvyg2yzgw7kssv57h7ryryh733vtg63sniwdk6xe6rqsq',
+                glowClass: 'glow-legendary',
+                badgeBg: 'bg-orange-950 text-orange-300 border border-orange-500/50',
+                subtitle: 'Warlord of the Ruined Castles',
+                description: 'Fierce, murderous goblin-fae that inhabit abandoned fortresses along the borderlands. They dye their felt caps in the blood of their foes to maintain their unnatural vigor.',
+                palette: 'Fiery Orange & Blood Crimson Ember',
+                hardCap: null,
+                recipe: 'Blend 5 Epics'
+            },
+            {
+                id: 'dryad',
+                name: 'Dryad',
+                rarity: 'Mythic',
+                rarityKey: 'mythic',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreieoy4aoqtlicjhwifhf2gce54u2q2h4lyci5uhe67wv425eirb5rm',
+                glowClass: 'glow-mythic',
+                badgeBg: 'bg-amber-950 text-yellow-300 border border-yellow-500/50',
+                subtitle: 'Heart of the World Tree',
+                description: 'Ancient elemental spirits inextricably bound to sacred trees. The Dryad wields solar magical force, capable of breathing life into withered woods or commanding root and branch in battle.',
+                palette: 'Metallic Radiant Gold & Solar Flare',
+                hardCap: null,
+                recipe: 'Blend 5 Legendaries'
+            },
+            {
+                id: 'titania',
+                name: 'Titania, Queen of the High Court',
+                rarity: 'Divine',
+                rarityKey: 'divine',
+                image: 'https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiejraa5eetialvpp7rpac5gzoe24n4vw36rn7kgb7m4c7wport5ee',
+                glowClass: 'glow-divine',
+                badgeBg: 'bg-indigo-950 text-indigo-100 border border-indigo-300 shadow-[0_0_10px_rgba(224,231,255,0.5)]',
+                subtitle: 'Supreme Monarch of Glimmerveil',
+                description: 'The supreme ruler of all fae courts. Clad in iridescent starlight and cosmic platinum light, Queen Titania commands the cosmos and balances elemental magic across the mortal and ethereal planes.',
+                palette: 'Iridescent Platinum & Starlight Shimmer',
+                hardCap: 100,
+                recipe: 'Burn 5 Mythic Dryads'
+            }
+        ];
 
+        let activeCard = null;
+
+        // RENDER CARDS TO GRID
+        function renderCards(filter = 'all') {
+            const grid = document.getElementById('card-grid');
+            grid.innerHTML = '';
+
+            const filteredCards = filter === 'all' 
+                ? cardsData 
+                : cardsData.filter(c => c.rarityKey === filter);
+
+            filteredCards.forEach((card) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card-perspective cursor-pointer group flex flex-col h-full';
+                
+                cardEl.innerHTML = `
+                    <div class="card-inner relative bg-slate-900 rounded-2xl border-2 transition-all duration-300 p-3 flex flex-col justify-between h-full ${card.glowClass}">
+                        <div class="glare"></div>
+                        
+                        <!-- Image Container -->
+                        <div class="relative overflow-hidden rounded-xl bg-slate-950 aspect-[9/14] mb-3">
+                            <img 
+                                src="${card.image}" 
+                                alt="${card.name}"
+                                loading="lazy"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                onerror="this.src='https://placehold.co/400x600/1e293b/94a3b8?text=${encodeURIComponent(card.name)}'"
+                            />
+                            ${card.hardCap ? `
+                                <div class="absolute top-2 right-2 bg-slate-950/90 border border-indigo-400 text-indigo-200 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg backdrop-blur-md">
+                                    CAP: ${card.hardCap}
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- Card Info Footer -->
+                        <div class="flex flex-col flex-1 justify-between pt-1">
+                            <div>
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-[11px] font-bold uppercase tracking-wider ${card.badgeBg} px-2.5 py-0.5 rounded-full">
+                                        ${card.rarity}
+                                    </span>
+                                    <i class="fa-solid fa-expand text-slate-500 group-hover:text-slate-300 text-xs transition-colors"></i>
+                                </div>
+                                <h3 class="font-cinzel text-lg font-bold text-slate-100 group-hover:text-white transition-colors truncate mt-1">
+                                    ${card.name}
+                                </h3>
+                                <p class="text-xs text-slate-400 line-clamp-2 mt-1 font-light">
+                                    ${card.subtitle}
+                                </p>
+                            </div>
+
+                            <div class="mt-4 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                                <span>Collection #00${cardsData.indexOf(card) + 1}</span>
+                                <span class="text-purple-400 font-medium">Inspect Card <i class="fa-solid fa-arrow-right text-[9px] ml-0.5"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Add 3D Tilt Event Listeners
+                const inner = cardEl.querySelector('.card-inner');
+                
+                cardEl.addEventListener('mousemove', (e) => {
+                    const rect = cardEl.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10;
+                    const rotateY = ((x - centerX) / centerX) * 10;
+                    
+                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                cardEl.addEventListener('mouseleave', () => {
+                    inner.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+
+                cardEl.addEventListener('click', () => openModal(card));
+
+                grid.appendChild(cardEl);
+            });
+        }
+
+        // FILTER CARDS
+        function filterCards(rarityKey) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-900/60', 'border-purple-500', 'text-purple-200');
+                btn.classList.add('bg-slate-800/80', 'border-slate-700');
+            });
+
+            event.currentTarget.classList.remove('bg-slate-800/80', 'border-slate-700');
+            event.currentTarget.classList.add('bg-purple-900/60', 'border-purple-500', 'text-purple-200');
+
+            renderCards(rarityKey);
+        }
+
+        // MODAL HANDLERS
+        function openModal(card) {
+            activeCard = card;
+            
+            const modal = document.getElementById('card-modal');
+            const img = document.getElementById('modal-img');
+            const wrapper = document.getElementById('modal-card-wrapper');
+            const title = document.getElementById('modal-title');
+            const subtitle = document.getElementById('modal-subtitle');
+            const desc = document.getElementById('modal-description');
+            const badge = document.getElementById('modal-rarity-badge');
+            const capBadge = document.getElementById('modal-cap-badge');
+            const palette = document.getElementById('modal-palette');
+            const recipe = document.getElementById('modal-recipe');
+
+            img.src = card.image;
+            img.onerror = () => { img.src = `https://placehold.co/400x600/1e293b/94a3b8?text=${encodeURIComponent(card.name)}`; };
+
+            title.innerText = card.name;
+            subtitle.innerText = card.subtitle;
+            desc.innerText = card.description;
+            palette.innerText = card.palette;
+            recipe.innerText = card.recipe;
+
+            badge.innerText = card.rarity;
+            badge.className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${card.badgeBg}`;
+
+            if (card.hardCap) {
+                capBadge.innerText = `Hard Cap: ${card.hardCap}`;
+                capBadge.classList.remove('hidden');
+            } else {
+                capBadge.classList.add('hidden');
+            }
+
+            // Wrapper border glow style match
+            wrapper.className = `relative max-w-[320px] w-full rounded-xl overflow-hidden shadow-2xl border-2 transition-all ${card.glowClass}`;
+
+            modal.classList.add('modal-active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('card-modal');
+            modal.classList.remove('modal-active');
+            activeCard = null;
+        }
+
+        // COPY IPFS LINK TO CLIPBOARD
+        function copyIpfsLink() {
+            if (!activeCard) return;
+            
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = activeCard.image;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            const btn = document.getElementById('modal-copy-btn');
+            const originalHTML = btn.innerHTML;
+            
+            btn.innerHTML = `<i class="fa-solid fa-check text-green-400"></i><span>Link Copied!</span>`;
+            btn.classList.add('bg-green-950/80', 'border-green-500');
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('bg-green-950/80', 'border-green-500');
+            }, 2000);
+        }
+
+        // GENERATE AMBIENT FLOATING PARTICLES
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'bg-particle';
+                
+                const size = Math.random() * 4 + 2;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 10;
+                
+                // Color variation
+                const colors = ['rgba(168, 85, 247, 0.4)', 'rgba(59, 130, 246, 0.4)', 'rgba(234, 179, 8, 0.3)', 'rgba(249, 115, 22, 0.3)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 10px ${color}`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        // INITIALIZE APP
+        window.onload = function () {
+            renderCards();
+            createParticles();
+
+            // Close modal when clicking background dark area
+            document.getElementById('card-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'card-modal') closeModal();
+            });
+
+            // ESC key to close modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        };
+    </script>
 </body>
 </html>
