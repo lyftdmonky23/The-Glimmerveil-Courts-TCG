@@ -3,314 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Glimmerveil Courts TCG - Collection Showcase</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>The Glimmerveil Courts TCG</title>
     <style>
-        :root {
-            --bg-dark: #08090d;
-            --card-bg: #12141d;
-            --accent-gold: #d4af37;
-            --common-color: #a0a5b5;
-            --uncommon-color: #2ecc71;
-            --rare-color: #3498db;
-            --epic-color: #9b59b6;
-            --legendary-color: #e67e22;
-            --mythic-color: #f1c40f;
-            --divine-color: #e8f4f8;
-            --divine-glow: rgba(232, 244, 248, 0.8);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            background-color: var(--bg-dark);
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
-        }
-
-        header {
+            background-color: #08090d;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
             text-align: center;
-            padding: 3rem 1rem 1.5rem;
-            position: relative;
+            padding: 2rem;
+            margin: 0;
         }
-
         h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
+            color: #d4af37;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-
-        .subtitle {
-            font-size: 1.1rem;
+        p {
             color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-            font-weight: 300;
+            margin-bottom: 2rem;
         }
-
-        .cta-container {
+        .btn-container {
             display: flex;
             justify-content: center;
             gap: 1rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
         }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+        .btn {
+            background: #d4af37;
             color: #000;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            padding: 0.85rem 1.8rem;
-            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
             text-decoration: none;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
+        }
+        .btn-secondary {
+            background: #2c3e50;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #12141d;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .card span {
+            color: #d4af37;
             font-size: 0.9rem;
         }
+    </style>
+</head>
+<body>
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
-            background: linear-gradient(135deg, #ebd06a 0%, #c5931d 100%);
-        }
+    <h1>The Glimmerveil Courts</h1>
+    <p>An evolution-driven trading card game on the WAX Blockchain. Blend your way to the apex Divine Court.</p>
+    
+    <div class="btn-container">
+        <a href="https://wax.mintyblocks.com/mintyblocks/drops?collection=glimmercourt" target="_blank" class="btn">Mintyblocks Blends</a>
+        <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/glimmercourt#more-info" target="_blank" class="btn btn-secondary">AtomicHub Collection</a>
+    </div>
 
-        .cta-button-secondary {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
-            color: #ecf0f1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
+    <div class="grid" id="cardGrid">
+        <!-- Cards injected via script -->
+    </div>
 
-        .cta-button-secondary:hover {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.3);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
+    <script>
+        const cards = [
+            { name: "Changeling", rarity: "Common (0.5 WAX)", recipe: "3 Changelings → 1 Pixie", hash: "bafkreignxsl47yd3tn25czpydzjvtxvjbje5hecanczpljetluad67oirq" },
+            { name: "Pixie", rarity: "Uncommon", recipe: "3 Pixies → 1 Selkie", hash: "bafkreifqaaqas62qrclshopenuk4jcznvxnob7hf4q275bwkxfwpt5bytu" },
+            { name: "Selkie", rarity: "Rare", recipe: "4 Selkies → 1 Kelpie", hash: "bafkreibnlbgzacwb3gadinciljfzpnhxzwwiosuo5pjpr75cjr2uipgw4m" },
+            { name: "Kelpie", rarity: "Epic", recipe: "4 Kelpies → 1 Redcap", hash: "bafkreiah5qtkio2tduyl2jzu3baahfl6j4zdmfrq6ldsvt3faflyw3iyom" },
+            { name: "Redcap", rarity: "Legendary", recipe: "4 Redcaps → 1 Dryad", hash: "bafkreifbppnnlrvyg2yzgw7kssv57h7ryryh733vtg63sniwdk6xe6rqsq" },
+            { name: "Dryad", rarity: "Mythic", recipe: "5 Dryads → 1 Titania", hash: "bafkreieoy4aoqtlicjhwifhf2gce54u2q2h4lyci5uhe67wv425eirb5rm" },
+            { name: "Titania, Queen of the High Court", rarity: "Divine (Capped 100)", recipe: "Apex Monarch", hash: "bafkreiejraa5eetialvpp7rpac5gzoe24n4vw36rn7kgb7m4c7wport5ee" }
+        ];
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            max-width: 1000px;
-            margin: 0 auto 2.5rem;
-            padding: 0 1rem;
-        }
+        const grid = document.getElementById("cardGrid");
+        cards.forEach(c => {
+            grid.innerHTML += `
+                <div class="card">
+                    <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/${c.hash}" alt="${c.name}" onerror="this.src='https://ipfs.io/ipfs/${c.hash}'">
+                    <h3>${c.name}</h3>
+                    <p style="color:#fff; margin:0.2rem 0;">${c.rarity}</p>
+                    <span>Recipe: ${c.recipe}</span>
+                </div>
+            `;
+        });
+    </script>
 
-        .filter-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--accent-gold);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-        }
-
-        .card-container {
-            perspective: 1000px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
-            transform-style: preserve-3d;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            background: #1a1d28;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .card:hover .card-image {
-            transform: scale(1.04);
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.35rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            backdrop-filter: blur(8px);
-            z-index: 2;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .badge-common { background: rgba(160, 165, 181, 0.3); color: #e2e8f0; border: 1px solid var(--common-color); }
-        .badge-uncommon { background: rgba(46, 204, 113, 0.3); color: #2ecc71; border: 1px solid var(--uncommon-color); }
-        .badge-rare { background: rgba(52, 152, 219, 0.3); color: #3498db; border: 1px solid var(--rare-color); }
-        .badge-epic { background: rgba(155, 89, 182, 0.3); color: #9b59b6; border: 1px solid var(--epic-color); }
-        .badge-legendary { background: rgba(230, 126, 34, 0.3); color: #e67e22; border: 1px solid var(--legendary-color); }
-        .badge-mythic { background: rgba(241, 196, 15, 0.3); color: #f1c40f; border: 1px solid var(--mythic-color); }
-        .badge-divine { 
-            background: rgba(232, 244, 248, 0.4); 
-            color: #fff; 
-            border: 1px solid var(--divine-color);
-            box-shadow: 0 0 12px var(--divine-glow);
-        }
-
-        .card-info {
-            padding: 1.25rem;
-            background: linear-gradient(180deg, rgba(18, 20, 29, 0.9) 0%, rgba(10, 11, 16, 1) 100%);
-        }
-
-        .card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            color: #fff;
-        }
-
-        .card-subtitle {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-recipe {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            background: rgba(212, 175, 55, 0.08);
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            border-left: 2px solid var(--accent-gold);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-        }
-
-        @media (max-width: 768px) {
-            .modal-content {
-                flex-direction: column;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-        }
-
-        .modal-image-side {
-            flex: 1;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .modal-image-side img {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            object-fit: contain;
-        }
-
-        .modal-info-side {
-            flex: 1;
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            color: #94a3b8;
-            cursor: pointer;
-            transition:
+</body>
+</html>
