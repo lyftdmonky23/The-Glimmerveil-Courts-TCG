@@ -141,4 +141,176 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background: #1a1d28;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.04);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .badge-common { background: rgba(160, 165, 181, 0.3); color: #e2e8f0; border: 1px solid var(--common-color); }
+        .badge-uncommon { background: rgba(46, 204, 113, 0.3); color: #2ecc71; border: 1px solid var(--uncommon-color); }
+        .badge-rare { background: rgba(52, 152, 219, 0.3); color: #3498db; border: 1px solid var(--rare-color); }
+        .badge-epic { background: rgba(155, 89, 182, 0.3); color: #9b59b6; border: 1px solid var(--epic-color); }
+        .badge-legendary { background: rgba(230, 126, 34, 0.3); color: #e67e22; border: 1px solid var(--legendary-color); }
+        .badge-mythic { background: rgba(241, 196, 15, 0.3); color: #f1c40f; border: 1px solid var(--mythic-color); }
+        .badge-divine { 
+            background: rgba(232, 244, 248, 0.4); 
+            color: #fff; 
+            border: 1px solid var(--divine-color);
+            box-shadow: 0 0 12px var(--divine-glow);
+        }
+
+        .card-info {
+            padding: 1.25rem;
+            background: linear-gradient(180deg, rgba(18, 20, 29, 0.9) 0%, rgba(10, 11, 16, 1) 100%);
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: #fff;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-recipe {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.08);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            border-left: 2px solid var(--accent-gold);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                flex-direction: column;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+
+        .modal-image-side {
+            flex: 1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-image-side img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .modal-info-side {
+            flex: 1;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition:
