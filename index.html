@@ -65,15 +65,80 @@
         }
 
         .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
             margin-bottom: 2rem;
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
             color: #000;
             font-family: 'Cinzel', serif;
             font-weight: 700;
             padding: 0.85rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #ebd06a 0%, #c5931d 100%);
+        }
+
+        .cta-button-secondary {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+            color: #ecf0f1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button-secondary:hover {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            max-width: 1000px;
+            margin: 0 auto 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--accent-gold);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat
